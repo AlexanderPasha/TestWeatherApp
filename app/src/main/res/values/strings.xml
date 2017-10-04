@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TestWeatherApp</string>
+    <string name="API">da34a1770ab7804a79a24144a22414d3</string>
+    <string name="apiUrlpart1">http://api.openweathermap.org/data/2.5/weather?q=</string>
+    <string name="apiUrlpart2">APPID=</string>
+    <string name="CityTip">
+        Введите название города по международной номенклатуре, латинскими буквами и нажмите кнопку "Проверить". Если город в базе найден - нажмите кнопку "Выбрать". \n
+
+        Пример правильного ввода: Kharkiv. \n
+
+        Пример неправильного ввода: Харьков, Khar`kov, и т.п. \n
+    </string>
+</resources>
