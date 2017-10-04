@@ -44,7 +44,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:background="@color/textColor"
-                android:text="Проверить" />
+                android:text="Check" />
 
             <Button
                 android:id="@+id/btnSelect"
@@ -53,7 +53,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@color/textColor"
-                android:text="Добавить" />
+                android:text="Add" />
         </LinearLayout>
 
         <TextView

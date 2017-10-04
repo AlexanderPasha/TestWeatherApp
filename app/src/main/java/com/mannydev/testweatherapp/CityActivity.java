@@ -107,14 +107,14 @@ public class CityActivity extends AppCompatActivity {
                 city = editText.getText().toString();
                 if (city.equals("")) {
                     Toast.makeText(getApplicationContext(),
-                            "Введите название города!", Toast.LENGTH_LONG).show();
+                            "Enter the City Name!", Toast.LENGTH_LONG).show();
                 } else {
                     if (hasConnection(CityActivity.this)) {
                         CityValidChecker cityValidChecker = new CityValidChecker();
                         cityValidChecker.execute();
                     } else {
                         Toast.makeText(getApplicationContext(),
-                                "Проверьте соединение с интернетом!", Toast.LENGTH_LONG).show();
+                                "Check your internet connection!", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -221,12 +221,14 @@ public class CityActivity extends AppCompatActivity {
 
         private String getWeatherInJSON() {
             StringBuilder response = new StringBuilder();
-            String sourceUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + editText.getText().toString() + "&APPID=da34a1770ab7804a79a24144a22414d3";
+            String sourceUrl = "http://api.openweathermap.org/data/2.5/weather?q="
+                    + editText.getText().toString() + "&APPID=da34a1770ab7804a79a24144a22414d3";
             try {
                 URL url = new URL(sourceUrl);
                 HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
                 if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()));
+                    BufferedReader input;
+                    input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()));
                     String strLine;
                     while ((strLine = input.readLine()) != null) {
                         response.append(strLine);
@@ -235,22 +237,19 @@ public class CityActivity extends AppCompatActivity {
                 }
                 httpconn.disconnect();
             } catch (IOException e) {
-                txtResult.setText("Город " + editText.getText().toString() + " в базе не найден.");
-                editText.setText("");
-
-
+                e.printStackTrace();
             }
             return response.toString();
         }
 
 
         private void cityFound() {
-            txtResult.setText("Город " + editText.getText().toString() + " найден! Добавляйте!;)");
+            txtResult.setText("City " + editText.getText().toString() + " is found! Add it!");
             btnSelect.setEnabled(true);
         }
 
         private void cityNotFound() {
-            txtResult.setText("Город " + editText.getText().toString() + " в базе не найден.");
+            txtResult.setText("City " + editText.getText().toString() + " not found!");
             editText.setText("");
 
 

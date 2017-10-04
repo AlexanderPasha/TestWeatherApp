@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -77,14 +76,14 @@ public class MainActivity extends AppCompatActivity {
         if (newcity != null || weather.contains(CITY_NAME)) {
             city = weather.getString(CITY_NAME, null);
             //Проверяем, не изменили ли мы только что наш город
-            if (newcity != null && !Objects.equals(newcity, city)) {
+            if (newcity != null && !newcity.equals(city)) {
                 if (hasConnection(MainActivity.this)) {
                     city = newcity;
                     CityWeatherGeter cwg = new CityWeatherGeter();
                     cwg.execute();
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Нет соединения с интернетом!", Toast.LENGTH_LONG).show();
+                            "Check your internet connection!", Toast.LENGTH_LONG).show();
                     return;
                 }
             } else {
@@ -116,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Нет соединения с интернетом!", Toast.LENGTH_LONG).show();
+                            "Check your internet connection!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -242,7 +241,8 @@ public class MainActivity extends AppCompatActivity {
                 rememberData();
             } else {
                 getCacheOnTop();
-                Toast.makeText(MainActivity.this, "Проверьте соединение с интернетом", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Check your internet connection!",
+                        Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -250,12 +250,14 @@ public class MainActivity extends AppCompatActivity {
         //Получаем данные по городу с сайта
         private String getWeatherInJSON(String city) {
             StringBuilder response = new StringBuilder();
-            String sourceUrl = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=da34a1770ab7804a79a24144a22414d3";
+            String sourceUrl = "http://api.openweathermap.org/data/2.5/weather?q="
+                    + city + "&APPID=da34a1770ab7804a79a24144a22414d3";
             try {
                 URL url = new URL(sourceUrl);
                 HttpURLConnection httpconn = (HttpURLConnection) url.openConnection();
                 if (httpconn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    BufferedReader input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()));
+                    BufferedReader input;
+                    input = new BufferedReader(new InputStreamReader(httpconn.getInputStream()));
                     String strLine;
                     while ((strLine = input.readLine()) != null) {
                         response.append(strLine);
